@@ -12,17 +12,14 @@ working script
 # done
 
 
+restore tested and working 
 
-restoring bit not working need
+value=`cat balaji.json`
 
-# restore testing now 
-array=( 'Kubernetes-cluster-overview-api-test2' 'Kubernetes-cluster-overview-api-test-3' 'Kubernetes-cluster-overview-api-test' ) 
-for u in "${array[@]}"
-do
-    dashboardid=$(curl -X GET https://wfu44453.live.dynatrace.com/api/config/v1/dashboards/ -H 'Authorization: Api-token '"$token"'' | jq '.dashboards[] | select (.name== '\"$u\"') | .id' | sed 's/"//g')
-    echo    "my :$dashboardid"
-    restorejson=$(cat $u.json)
-    echo "my resotrefile name =>  $u.json"
-    cat $u.json | xargs echo -e| curl -X PUT --data-binary @- https://wfu44453.live.dynatrace.com/api/config/v1/dashboards/"$dashboardid" -H 'Authorization: Api-token '"$token"'' -H 'Content-Type:application/json' 
-                                                                                                                                    
-done
+
+
+
+curl  --location --request PUT 'https://wfu44453.live.dynatrace.com/api/config/v1/dashboards/a667b7a8-def7-4f09-a88d-a54ad11740cd' \
+--header 'Authorization: Api-token xxxxxxx-I' \
+--header 'Content-Type: application/json' \
+--data-raw "$value"
